@@ -15,6 +15,28 @@ def draw_letters
   return letter_bank
 end
 
-def uses_available_letters?(user_input_word, letter_bank)
 
+def letters_to_hash(letters)
+  hash = Hash.new(0)
+  letters.each do |letter|
+    hash[letter] +=1
+    end
+ return hash
+end
+
+def uses_available_letters?(user_input_word, letter_bank)
+  array_of_input_letters = user_input_word.split('')
+  letter_bank_hash = letters_to_hash(letter_bank)
+  user_input_word_hash = letters_to_hash(array_of_input_letters)
+  output = nil
+  user_input_word_hash.each do |key,value|
+    if !letter_bank_hash.keys.include?(key)
+      output = false
+    elsif user_input_word_hash[key] > letter_bank_hash[key]
+      output= false
+    else
+      output = true
+    end
+  end
+  return output
 end
