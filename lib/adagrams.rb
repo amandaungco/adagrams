@@ -9,9 +9,8 @@ def draw_letters
     while players_hand_of_ten.count(random_letter_picked) > letters_to_quantity[random_letter_picked]
       players_hand_of_ten.pop
       random_letter_picked = letters_to_quantity.keys.sample
+      players_hand_of_ten << random_letter_picked
     end
   end
   return players_hand_of_ten
 end
-
-print draw_letters
