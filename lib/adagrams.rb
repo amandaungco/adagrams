@@ -40,3 +40,7 @@ def uses_available_letters?(user_input_word, letter_bank)
   end
   return output
 end
+
+# letter_bank = %w(w a s u p c o w)
+# user_input_word = 'cat'
+# p uses_available_letters?(user_input_word, letter_bank)

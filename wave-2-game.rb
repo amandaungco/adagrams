@@ -49,8 +49,11 @@ def run_game
     display_game_instructions
 
     user_input_word = get_user_input
-
+puts "yo"
+puts user_input_word
+puts "#{letter_bank}"
     while ( !(uses_available_letters?(user_input_word, letter_bank)) )
+      puts "here"
       display_needs_valid_input_message
       user_input_word = get_user_input
     end
