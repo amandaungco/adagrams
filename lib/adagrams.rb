@@ -42,6 +42,9 @@ def uses_available_letters?(user_input_word, letter_bank)
 end
 
 def score_word(user_input_word) #String
+  if user_input_word.length == 0
+    total_score = 0
+  else
   array_of_input_letters = user_input_word.downcase.split("")
   user_input_word_hash = letters_to_hash(array_of_input_letters)
   score_to_letters = {1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"], 2 => ["d", "g"], 3 => ["b", "c", "m", "p"],
@@ -60,6 +63,7 @@ def score_word(user_input_word) #String
   total_score += 8
   end
   return total_score
+end
 end
 
   # letter_bank = %w(w a s u p c o w)
