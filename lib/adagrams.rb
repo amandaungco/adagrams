@@ -74,6 +74,9 @@ collection_of_played_words_and_scores = []
     played_word_to_score[:score] = score_word(word)
     collection_of_played_words_and_scores.push(played_word_to_score)
   end
+  highest_scores = collection_of_played_words_and_scores.max_by{ |h,k| h[:score]}
+  return highest_scores
+end
 
   # letter_bank = %w(w a s u p c o w)
 # user_input_word = 'cat'
