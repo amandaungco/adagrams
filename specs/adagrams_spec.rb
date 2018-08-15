@@ -99,7 +99,7 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 32
     end
 
-    xit 'in case of tied score, prefers the word with fewer letters' do
+    it 'in case of tied score, prefers the word with fewer letters' do
       # the character 'M' is worth 3 points, 'W' is 4 points
       words = ['MMMM', 'WWW']
 
@@ -113,7 +113,7 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 12
     end
 
-    xit 'in case of tied score, prefers the word with fewer letters regardless of order' do
+    it 'in case of tied score, prefers the word with fewer letters regardless of order' do
       # the character 'M' is worth 3 points, 'W' is 4 points
       words = ['WWW', 'MMMM']
 
@@ -127,7 +127,7 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 12
     end
 
-    xit 'in case of tied score, prefers most the word with 10 letters' do
+    it 'in case of tied score, prefers most the word with 10 letters' do
       # the character 'A' is worth 1 point, 'B' is 3 points
       words = ['AAAAAAAAAA', 'BBBBBB']
 
@@ -141,7 +141,7 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
 
-    xit 'in case of tied score, prefers most the word with 10 letters regardless of order' do
+    it 'in case of tied score, prefers most the word with 10 letters regardless of order' do
       # the character 'A' is worth 1 point, 'B' is 3 points
       words = ['BBBBBB', 'AAAAAAAAAA']
 
@@ -155,7 +155,7 @@ describe 'Adagrams' do
       expect(best_word[:score]).must_equal 18
     end
 
-    xit 'in case of tied score and same length words, prefers the first word' do
+    it 'in case of tied score and same length words, prefers the first word' do
       # the character 'A' is worth 1 point, 'E' is 1 point
       words = ['AAAAAAAAAA', 'EEEEEEEEEE']
 

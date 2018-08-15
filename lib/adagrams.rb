@@ -1,4 +1,4 @@
-# require "pry"
+require "pry"
 
 def draw_letters
   letters_to_quantity = {"a" => 9, "b" => 2, "c" => 2, "d" => 4, "e" => 12, "f" => 2, "g" => 3, "h"=> 2, "i" => 9, "j" => 1, "k" => 1,
