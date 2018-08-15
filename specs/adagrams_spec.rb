@@ -9,12 +9,12 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 describe 'Adagrams' do
   describe 'draw_letters method' do
-    it 'draws ten letters from the letter pool' do
+    it '1) draws ten letters from the letter pool' do
       drawn_letters = draw_letters
       expect(drawn_letters.size).must_equal 10
     end
 
-    it 'returns an array, and each item is a single-letter string' do
+    it '2)) returns an array, and each item is a single-letter string' do
       drawn_letters = draw_letters
       expect(drawn_letters.size).must_equal 10
 
@@ -28,7 +28,7 @@ describe 'Adagrams' do
 
   describe 'uses_available_letters? method' do
 
-    it 'returns true if the submitted letters are valid against the drawn letters' do
+    it '1) returns true if the submitted letters are valid against the drawn letters' do
       drawn_letters = ['D', 'O', 'G', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
       test_word = 'DOG'
 
@@ -37,7 +37,7 @@ describe 'Adagrams' do
       expect(is_valid).must_equal true
     end
 
-    it 'returns false word contains letters not in the drawn letters' do
+    it '2) returns false word contains letters not in the drawn letters' do
       drawn_letters = ['D', 'O', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
       test_word = 'DOG'
 
@@ -46,7 +46,7 @@ describe 'Adagrams' do
       expect(is_valid).must_equal false
     end
 
-    it 'returns false word contains repeated letters more than in the drawn letters' do
+    it '3) returns false word contains repeated letters more than in the drawn letters' do
       drawn_letters = ['A', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
       test_word = 'AAA'
 
@@ -58,23 +58,24 @@ describe 'Adagrams' do
   end
 
   describe 'score_word method' do
-    it 'returns an accurate numerical score according to the score chart' do
+    it '1) returns an accurate numerical score according to the score chart' do
       expect(score_word("A")).must_equal 1
       expect(score_word("DOG")).must_equal 5
       expect(score_word("WHIMSY")).must_equal 17
     end
 
-    it 'returns a score regardless of input case' do
+    it '2) returns a score regardless of input case' do
       expect(score_word("a")).must_equal 1
       expect(score_word("dog")).must_equal 5
       expect(score_word("wHiMsY")).must_equal 17
     end
 
-    it 'returns a score of 0 if given an empty input' do
+    it '3) returns a score of 0 if given an empty input' do
+      # FAIL
       expect(score_word("")).must_equal 0
     end
 
-    it 'adds an extra 8 points if the word is 7 or more characters long' do
+    it '4) adds an extra 8 points if the word is 7 or more characters long' do
       expect(score_word("XXXXXXX")).must_equal 64
       expect(score_word("XXXXXXXX")).must_equal 72
       expect(score_word("XXXXXXXXX")).must_equal 80
