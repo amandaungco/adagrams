@@ -56,30 +56,30 @@ describe 'Adagrams' do
     end
 
   end
-  #
-  # xdescribe 'score_word method' do
-  #   it 'returns an accurate numerical score according to the score chart' do
-  #     expect(score_word("A")).must_equal 1
-  #     expect(score_word("DOG")).must_equal 5
-  #     expect(score_word("WHIMSY")).must_equal 17
-  #   end
-  #
-  #   it 'returns a score regardless of input case' do
-  #     expect(score_word("a")).must_equal 1
-  #     expect(score_word("dog")).must_equal 5
-  #     expect(score_word("wHiMsY")).must_equal 17
-  #   end
-  #
-  #   it 'returns a score of 0 if given an empty input' do
-  #     expect(score_word("")).must_equal 0
-  #   end
-  #
-  #   it 'adds an extra 8 points if the word is 7 or more characters long' do
-  #     expect(score_word("XXXXXXX")).must_equal 64
-  #     expect(score_word("XXXXXXXX")).must_equal 72
-  #     expect(score_word("XXXXXXXXX")).must_equal 80
-  #   end
-  # end
+
+  describe 'score_word method' do
+    it 'returns an accurate numerical score according to the score chart' do
+      expect(score_word("A")).must_equal 1
+      expect(score_word("DOG")).must_equal 5
+      expect(score_word("WHIMSY")).must_equal 17
+    end
+
+    it 'returns a score regardless of input case' do
+      expect(score_word("a")).must_equal 1
+      expect(score_word("dog")).must_equal 5
+      expect(score_word("wHiMsY")).must_equal 17
+    end
+
+    it 'returns a score of 0 if given an empty input' do
+      expect(score_word("")).must_equal 0
+    end
+
+    it 'adds an extra 8 points if the word is 7 or more characters long' do
+      expect(score_word("XXXXXXX")).must_equal 64
+      expect(score_word("XXXXXXXX")).must_equal 72
+      expect(score_word("XXXXXXXXX")).must_equal 80
+    end
+  end
   #
   # describe 'highest_score_from method' do
   #   it 'returns a hash that contains the word and score of best word in an array' do

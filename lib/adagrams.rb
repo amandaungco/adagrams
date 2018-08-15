@@ -41,6 +41,27 @@ def uses_available_letters?(user_input_word, letter_bank)
   return output
 end
 
-# letter_bank = %w(w a s u p c o w)
+def score_word(user_input_word) #String
+  array_of_input_letters = user_input_word.downcase.split("")
+  user_input_word_hash = letters_to_hash(array_of_input_letters)
+  score_to_letters = {1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"], 2 => ["d", "g"], 3 => ["b", "c", "m", "p"],
+                       4 => ["f", "h", "v", "w", "y"], 5 => ["k"], 8 => ["j", "x"], 10 => ["q", "z"]}
+  array_of_letter_scores = []
+  user_input_word_hash.each do |word_key, word_value|
+    score_to_letters.each do |score_key, score_value|
+        if score_value.include?(word_key)
+          score = score_key*word_value
+          array_of_letter_scores.push(score)
+        end
+    end
+  end
+  total_score=  array_of_letter_scores.reduce(:+)
+  if user_input_word.length >= 7 && user_input_word.length < 11
+  total_score += 8
+  end
+  return total_score
+end
+
+  # letter_bank = %w(w a s u p c o w)
 # user_input_word = 'cat'
 # p uses_available_letters?(user_input_word, letter_bank)
