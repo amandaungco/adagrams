@@ -1,4 +1,4 @@
-require "pry"
+# require "pry"
 
 def draw_letters
   letters_to_quantity = {"a" => 9, "b" => 2, "c" => 2, "d" => 4, "e" => 12, "f" => 2, "g" => 3, "h"=> 2, "i" => 9, "j" => 1, "k" => 1,
@@ -67,7 +67,8 @@ def score_word(user_input_word) #String
   return total_score
 end
 end
-#played_words = %w(cow cow duck duck)
+#played_words = ['BBBBBB', 'AAAAAAAAAA']
+
 def highest_score_from(played_words)
 collection_of_played_words_and_scores = []
   played_words.each do |word|
@@ -78,17 +79,19 @@ collection_of_played_words_and_scores = []
   end
     highest_score = collection_of_played_words_and_scores.max_by{ |h| h[:score] } # hash
     tied_highest_scores = collection_of_played_words_and_scores.select {|h| h[:score] == highest_score[:score]} # all the hashes in an array
+    highest_score = {:score=>tied_highest_scores[0][:score]}
     tied_highest_scores.each do |h|
       if h[:word].length == 10
-        highest_score = h[:word]
-      else
-        highest_score = tied_highest_scores.min_by{|h| h[:word].length}
+        highest_score[:word] ||= h[:word]#tied_highest_scores.min_by{|h| h[:word].length}
       end
     end
-
-  return highest_score # supposed to be a hash
+    tied_highest_scores.each do |h|
+      if  h[:word].length == tied_highest_scores.min_by{|h| h[:word].length}[:word].length
+          highest_score[:word] ||= h[:word]
+      end
+    end
+  return highest_score #supposed to be a hash
 end
-
 #p highest_score_from(played_words)
 # user_input_word = 'cat'
 # p uses_available_letters?(user_input_word, letter_bank)
