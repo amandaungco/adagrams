@@ -66,6 +66,15 @@ def score_word(user_input_word) #String
 end
 end
 
+def highest_score_from(played_words)
+collection_of_played_words_and_scores = []
+  played_words.each do |word|
+    played_word_to_score = {} #how to deal with word duplicates
+    played_word_to_score[:word] = word
+    played_word_to_score[:score] = score_word(word)
+    collection_of_played_words_and_scores.push(played_word_to_score)
+  end
+
   # letter_bank = %w(w a s u p c o w)
 # user_input_word = 'cat'
 # p uses_available_letters?(user_input_word, letter_bank)
