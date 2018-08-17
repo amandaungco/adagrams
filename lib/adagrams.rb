@@ -1,16 +1,17 @@
 require "pry"
-
-def draw_letters
-  letters_to_quantity = {"a" => 9, "b" => 2, "c" => 2, "d" => 4, "e" => 12, "f" => 2, "g" => 3, "h"=> 2, "i" => 9, "j" => 1, "k" => 1,
+SCORE_TO_LETTERS = {1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"], 2 => ["d", "g"], 3 => ["b", "c", "m", "p"],
+  4 => ["f", "h", "v", "w", "y"], 5 => ["k"], 8 => ["j", "x"], 10 => ["q", "z"]}
+LETTERS_TO_QUANTITY = {"a" => 9, "b" => 2, "c" => 2, "d" => 4, "e" => 12, "f" => 2, "g" => 3, "h"=> 2, "i" => 9, "j" => 1, "k" => 1,
     "l" => 4, "m" => 2, "n" => 6, "o" => 8, "p" => 2, "q"=> 1, "r" => 6, "s" => 4, "t" => 6, "u"=> 4, "v" => 2,
     "w" => 2, "x" => 1, "y"=> 2, "z" => 1}
+def draw_letters
   letter_bank = Array.new
   10.times do
-    random_letter_picked = letters_to_quantity.keys.sample
+    random_letter_picked = LETTERS_TO_QUANTITY.keys.sample
     letter_bank << random_letter_picked
-    while letter_bank.count(random_letter_picked) > letters_to_quantity[random_letter_picked]
+    while letter_bank.count(random_letter_picked) > LETTERS_TO_QUANTITY[random_letter_picked]
       letter_bank.pop #what happens if you pop out letter and put back in the same letter from the next line
-      random_letter_picked = letters_to_quantity.keys.sample
+      random_letter_picked = LETTERS_TO_QUANTITY.keys.sample
       letter_bank << random_letter_picked
     end
   end
@@ -31,8 +32,8 @@ def uses_available_letters?(user_input_word, letter_bank)
   letter_bank_hash = letters_to_hash(letter_bank)
   user_input_letters_hash = letters_to_hash(array_of_input_letters)
   output = true
-  user_input_word_hash.each do |key,value|
-    if !letter_bank_hash.keys.include?(key) # look at looping of outputs, see what happens if use 
+  user_input_letters_hash.each do |key,value|
+    if !letter_bank_hash.keys.include?(key) # look at looping of outputs, see what happens if use
       output = false
     elsif user_input_letters_hash[key] > letter_bank_hash[key]
       output= false
@@ -47,11 +48,9 @@ def score_word(user_input_word) #String
   else
     array_of_input_letters = user_input_word.downcase.split("")
     user_input_word_hash = letters_to_hash(array_of_input_letters)
-    score_to_letters = {1 => ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"], 2 => ["d", "g"], 3 => ["b", "c", "m", "p"],
-      4 => ["f", "h", "v", "w", "y"], 5 => ["k"], 8 => ["j", "x"], 10 => ["q", "z"]}
       array_of_letter_scores = []
       user_input_word_hash.each do |word_key, word_value|
-        score_to_letters.each do |score_key, score_value|
+        SCORE_TO_LETTERS.each do |score_key, score_value|
           if score_value.include?(word_key)
             score = score_key*word_value
             array_of_letter_scores.push(score)
@@ -68,28 +67,18 @@ def score_word(user_input_word) #String
 #played_words = ['BBBBBB', 'AAAAAAAAAA']
 
 def highest_score_from(played_words)
-collection_of_played_words_and_scores = []
+  collection_of_played_words_and_scores = []#array of hashes
   played_words.each do |word|
     played_word_to_score = {} #how to deal with word duplicates
     played_word_to_score[:word] = word
     played_word_to_score[:score] = score_word(word)
     collection_of_played_words_and_scores.push(played_word_to_score)
   end
-    highest_score = collection_of_played_words_and_scores.max_by{ |h| h[:score] } # hash
-    tied_highest_scores = collection_of_played_words_and_scores.select {|h| h[:score] == highest_score[:score]} # all the hashes in an array
-    highest_score = {:score=>tied_highest_scores[0][:score]}
-    tied_highest_scores.each do |h|
-      if h[:word].length == 10
-        highest_score[:word] ||= h[:word]#tied_highest_scores.min_by{|h| h[:word].length}
-      end
-    end
-    tied_highest_scores.each do |h|
-      if  h[:word].length == tied_highest_scores.min_by{|h| h[:word].length}[:word].length
-          highest_score[:word] ||= h[:word]
-      end
-    end
-  return highest_score #supposed to be a hash
+  top_score = collection_of_played_words_and_scores.reduce(0){ |memo, h| h[:score] > memo ? h[:score] : memo } # ==> {score: n}
+  tied_highest_scores = collection_of_played_words_and_scores.select {|h| h[:score].to_i == top_score} #highest_score[:score]} # all the hashes in an array
+  highest_score_hash = tied_highest_scores.find {|h| h[:word].length == 10}
+  if highest_score_hash == nil
+    highest_score_hash = tied_highest_scores.min_by{|h| h[:word].length}
+  end
+  return highest_score_hash #supposed to be a hash
 end
-#p highest_score_from(played_words)
-# user_input_word = 'cat'
-# p uses_available_letters?(user_input_word, letter_bank)
